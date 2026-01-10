@@ -1,0 +1,122 @@
+/* ----- GLOBAL STYLES ----- */
+body {
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  background: linear-gradient(135deg, #1a1a1d, #3a3a52);
+  color: white;
+  overflow: hidden;
+}
+
+/* ----- MENU PAGE ----- */
+.menu-container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.menu-container h1 {
+  font-size: 3rem;
+  margin-bottom: 10px;
+}
+
+.menu-container p {
+  color: #ccc;
+  margin-bottom: 30px;
+}
+
+.menu-buttons button {
+  width: 130px;
+  height: 50px;
+  font-size: 1.2rem;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.menu-buttons button:hover {
+  transform: scale(1.1);
+}
+
+/* ----- CARD FLIP EFFECT ----- */
+.card-container {
+  cursor: pointer;
+  perspective: 1000px;
+}
+
+.card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s ease;
+  transform-style: preserve-3d;
+}
+
+.card-container.flipped .card-inner {
+  transform: rotateY(180deg);
+}
+
+.card-front,
+.card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.card-back {
+  background: #495057;
+}
+
+.card-front {
+  transform: rotateY(180deg);
+  background: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* ----- GAME BOARD ----- */
+.game-container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: radial-gradient(circle at top, #212529, #000);
+}
+
+.game-grid {
+  display: grid;
+  gap: 15px;
+  justify-content: center;
+  align-content: center;
+  width: 80%;
+  max-width: 600px;
+}
+
+/* ----- WIN / LOSE MESSAGE ----- */
+.end-message {
+  text-align: center;
+  margin-top: 40px;
+  font-size: 2rem;
+  color: #ffc107;
+  animation: fadeIn 1s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
