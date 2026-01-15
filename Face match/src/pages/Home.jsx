@@ -1,55 +1,41 @@
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 export default function Home() {
   const navigate = useNavigate();
-  const user = JSON.parse(localStorage.getItem("user"));
+  const user = JSON.parse(localStorage.getItem("user") || "null");
+
+  useEffect(() => {
+    if (user) {
+      navigate("/difficulty");
+    }
+  }, [user, navigate]);
 
   return (
-    <div className="d-flex flex-column justify-content-center align-items-center vh-100 bg-light">
-      <h1 className="mb-4">🎭 Face Matching Game</h1>
+    <div className="page-center">
+      <h1>🎮 Face Matching Game</h1>
+      <p style={{ fontSize: "1.2rem", color: "#94a3b8", marginBottom: "30px" }}>
+        Test your memory by matching pairs of cards!
+      </p>
 
-      {!user && (
-        <>
-          <button
-            className="btn btn-primary btn-lg mb-3"
-            onClick={() => navigate("/register")}
-          >
-            Register
-          </button>
+      <div style={{ display: "flex", gap: "15px", flexWrap: "wrap", justifyContent: "center" }}>
+        <button className="btn btn-blue" onClick={() => navigate("/login")}>
+          Login
+        </button>
 
-          <button
-            className="btn btn-outline-primary btn-lg"
-            onClick={() => navigate("/login")}
-          >
-            Login
-          </button>
-        </>
-      )}
-
-      {user && (
-        <>
-          <p className="mb-3">Welcome, <b>{user.username}</b></p>
-
-          <button
-            className="btn btn-success btn-lg mb-3"
-            onClick={() => navigate("/game")}
-          >
-            🎮 Start Game
-          </button>
-
-          <button
-            className="btn btn-outline-danger"
-            onClick={() => {
-              localStorage.removeItem("user");
-              navigate("/");
-            }}
-          >
-            Logout
-          </button>
-        </>
-      )}
+        <button className="btn btn-blue" onClick={() => navigate("/register")}>
+          Register
+        </button>
+      </div>
     </div>
   );
 }
+
+
+
+
+
+
+
 
 

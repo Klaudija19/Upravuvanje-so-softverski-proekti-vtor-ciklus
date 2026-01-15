@@ -1,13 +1,17 @@
 <?php
 $host = "localhost";
+$db   = "face_match_db";
 $user = "root";
 $pass = "";
-$db = "face_match_db"; 
 
-$conn = new mysqli($host, $user, $pass, $db);
-
-if ($conn->connect_error) {
-    die("DB error");
+try {
+    $pdo = new PDO(
+        "mysql:host=$host;dbname=$db;charset=utf8",
+        $user,
+        $pass,
+        [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]
+    );
+} catch (PDOException $e) {
+    echo json_encode(["error" => "DB connection failed"]);
+    exit;
 }
-?>
-

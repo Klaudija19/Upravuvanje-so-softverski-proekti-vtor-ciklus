@@ -1,19 +1,27 @@
 <?php
-require "db.php";
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Headers: Content-Type");
+header("Access-Control-Allow-Methods: GET, OPTIONS");
+header("Content-Type: application/json");
 
-$result = $conn->query(
-  "SELECT users.username, games.score, games.level
-   FROM games
-   JOIN users ON games.user_id = users.id
-   ORDER BY games.score DESC
-   LIMIT 10"
-);
-
-$leaders = [];
-
-while ($row = $result->fetch_assoc()) {
-  $leaders[] = $row;
+if ($_SERVER["REQUEST_METHOD"] === "OPTIONS") {
+    http_response_code(200);
+    exit;
 }
 
-echo json_encode($leaders);
-?>
+require "db.php";
+
+$sql = "
+SELECT u.username, MAX(g.score) AS best_score, COUNT(g.id) AS total_games
+FROM games g
+JOIN users u ON g.user_id = u.id
+GROUP BY g.user_id, u.username
+ORDER BY best_score DESC
+LIMIT 10
+";
+
+$stmt = $pdo->query($sql);
+$results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+echo json_encode($results);
+

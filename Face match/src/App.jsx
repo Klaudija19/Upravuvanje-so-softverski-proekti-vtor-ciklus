@@ -1,57 +1,41 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import Board from "./Board";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import Difficulty from "./pages/Difficulty";
+import Game from "./pages/Game";
+import Profile from "./pages/Profile";
+import History from "./pages/History";
+import Leaderboard from "./pages/Leaderboard";
+import Navbar from "./components/Navbar";
+import "./App.css";
 
 export default function App() {
-  const [difficulty, setDifficulty] = useState(null);
-  const navigate = useNavigate();
-
-  if (difficulty) {
-    return (
-      <Board
-        difficulty={difficulty}
-        onRestart={() => setDifficulty(null)}
-      />
-    );
-  }
+  const user = JSON.parse(localStorage.getItem("user") || "null");
+  const showNavbar = user !== null;
 
   return (
-    <div className="d-flex flex-column justify-content-center align-items-center vh-100 bg-light text-center">
-      <h2 className="mb-4">Select difficulty</h2>
-
-      <div className="d-flex gap-3 mb-4">
-        <button
-          className="btn btn-success btn-lg"
-          onClick={() => setDifficulty("easy")}
-        >
-          Easy
-        </button>
-
-        <button
-          className="btn btn-warning btn-lg"
-          onClick={() => setDifficulty("medium")}
-        >
-          Medium
-        </button>
-
-        <button
-          className="btn btn-danger btn-lg"
-          onClick={() => setDifficulty("hard")}
-        >
-          Hard
-        </button>
-      </div>
-
-      {/* ✅ BACK КОПЧЕ */}
-      <button
-        className="btn btn-outline-secondary"
-        onClick={() => navigate("/")}
-      >
-        ⬅ Back
-      </button>
-    </div>
+    <BrowserRouter>
+      {showNavbar && <Navbar />}
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/difficulty" element={<Difficulty />} />
+        <Route path="/game/:level" element={<Game />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/history" element={<History />} />
+        <Route path="/leaderboard" element={<Leaderboard />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
+
+
+
+
+
+
 
 
 

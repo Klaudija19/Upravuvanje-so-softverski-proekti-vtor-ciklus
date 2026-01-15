@@ -1,28 +1,18 @@
-export default function Card({ img, flipped, onClick, size = 100 }) {
+function Card({ card, handleClick, flipped, disabled }) {
   return (
     <div
-      onClick={onClick}
-      style={{
-        width: size,
-        height: size,
-        borderRadius: "10px",
-        backgroundColor: "#ffffff",
-        border: "2px solid #333",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        cursor: "pointer",
-      }}
+      className={`card ${flipped ? "flipped" : ""}`}
+      onClick={() => !disabled && handleClick(card)}
     >
-      {flipped ? (
-        <img
-          src={img}
-          alt="card"
-          style={{ width: "90%", height: "90%", objectFit: "contain" }}
-        />
-      ) : (
-        <span style={{ fontSize: "32px" }}>❓</span>
-      )}
+      <div className="inner">
+        <div className="front">?</div>
+        <div className="back">
+          <img src={card.image} alt="card" />
+        </div>
+      </div>
     </div>
   );
 }
+
+export default Card;
+

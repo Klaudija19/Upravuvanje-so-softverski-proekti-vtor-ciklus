@@ -1,42 +1,199 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+body {
+  margin: 0;
+  font-family: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  color: white;
+  min-height: 100vh;
+}
+
+.center-page {
+  min-height: calc(100vh - 60px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.card-box {
+  background: #1e293b;
+  padding: 30px;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 300px;
   text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.card-box h2 {
+  margin-top: 0;
+  margin-bottom: 20px;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.card-box input {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border-radius: 6px;
+  border: 1px solid #334155;
+  background: #0f172a;
+  color: white;
+  font-size: 14px;
+  box-sizing: border-box;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.card-box input:focus {
+  outline: none;
+  border-color: #38bdf8;
+}
+
+.card-box button {
+  width: 100%;
+  padding: 12px;
+  background: #38bdf8;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+  margin-top: 10px;
+  transition: background 0.3s;
+}
+
+.card-box button:hover:not(:disabled) {
+  background: #0ea5e9;
+}
+
+.card-box button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 16px;
+  transition: all 0.3s;
+  margin: 5px;
+}
+
+.btn-green {
+  background: #10b981;
+  color: white;
+}
+
+.btn-green:hover {
+  background: #059669;
+  transform: translateY(-2px);
+}
+
+.btn-yellow {
+  background: #f59e0b;
+  color: white;
+}
+
+.btn-yellow:hover {
+  background: #d97706;
+  transform: translateY(-2px);
+}
+
+.btn-red {
+  background: #ef4444;
+  color: white;
+}
+
+.btn-red:hover {
+  background: #dc2626;
+  transform: translateY(-2px);
+}
+
+.grid {
+  display: grid;
+  gap: 15px;
+  margin: 20px 0;
+  justify-content: center;
 }
 
 .card {
-  padding: 2em;
+  width: 100px;
+  height: 100px;
+  background: #334155;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.2s, background 0.2s;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-.read-the-docs {
-  color: #888;
+.card:hover {
+  transform: scale(1.05);
+  background: #475569;
 }
+
+.card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.card .question {
+  font-size: 2rem;
+  color: #94a3b8;
+  font-weight: bold;
+}
+
+.win-message {
+  text-align: center;
+  margin: 20px 0;
+  padding: 20px;
+  background: #1e293b;
+  border-radius: 8px;
+}
+
+.win-message h3 {
+  color: #10b981;
+  margin: 0 0 10px 0;
+}
+
+.page-center {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.page-center h1 {
+  font-size: 3rem;
+  margin: 0;
+  background: linear-gradient(135deg, #38bdf8, #8b5cf6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.btn-blue {
+  background: #38bdf8;
+  color: white;
+  padding: 12px 30px;
+  font-size: 16px;
+}
+
+.btn-blue:hover {
+  background: #0ea5e9;
+}
+
+
+
+
+
+
+

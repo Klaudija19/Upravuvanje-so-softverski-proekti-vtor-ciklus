@@ -12,20 +12,21 @@ if ($_SERVER["REQUEST_METHOD"] === "OPTIONS") {
 require "db.php";
 
 $data = json_decode(file_get_contents("php://input"), true);
-$user_id = $data['user_id'] ?? null;
 
-if (!$user_id) {
-    echo json_encode([]);
-    exit;
-}
+$stmt = $pdo->prepare("
+    INSERT INTO games (user_id, level, time, attempts, score, created_at)
+    VALUES (?, ?, ?, ?, ?, NOW())
+");
 
-$sql = "SELECT level, time, attempts, score, created_at
-        FROM games
-        WHERE user_id = ?
-        ORDER BY created_at DESC";
+$stmt->execute([
+    $data["user_id"],
+    $data["level"],
+    $data["time"],
+    $data["attempts"],
+    $data["score"]
+]);
 
-$stmt = $pdo->prepare($sql);
-$stmt->execute([$user_id]);
-$games = $stmt->fetchAll(PDO::FETCH_ASSOC);
+echo json_encode(["success" => true]);
 
-echo json_encode($games);
+
+

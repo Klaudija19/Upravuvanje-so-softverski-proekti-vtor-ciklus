@@ -1,7 +1,7 @@
 <?php
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Headers: Content-Type");
-header("Access-Control-Allow-Methods: POST, OPTIONS");
+header("Access-Control-Allow-Methods: GET, OPTIONS");
 header("Content-Type: application/json");
 
 if ($_SERVER["REQUEST_METHOD"] === "OPTIONS") {
@@ -11,20 +11,14 @@ if ($_SERVER["REQUEST_METHOD"] === "OPTIONS") {
 
 require "db.php";
 
-$data = json_decode(file_get_contents("php://input"), true);
-$user_id = $data['user_id'] ?? null;
+$user_id = $_GET["user_id"] ?? null;
 
 if (!$user_id) {
     echo json_encode([]);
     exit;
 }
 
-$sql = "SELECT level, time, attempts, score, created_at
-        FROM games
-        WHERE user_id = ?
-        ORDER BY created_at DESC";
-
-$stmt = $pdo->prepare($sql);
+$stmt = $pdo->prepare("SELECT * FROM games WHERE user_id = ? ORDER BY created_at DESC");
 $stmt->execute([$user_id]);
 $games = $stmt->fetchAll(PDO::FETCH_ASSOC);
 

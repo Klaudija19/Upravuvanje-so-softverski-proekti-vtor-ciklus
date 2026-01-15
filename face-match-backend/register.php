@@ -1,28 +1,30 @@
 <?php
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Headers: Content-Type");
+header("Access-Control-Allow-Methods: POST, OPTIONS");
 header("Content-Type: application/json");
 
-include "db.php";
+if ($_SERVER["REQUEST_METHOD"] === "OPTIONS") {
+    http_response_code(200);
+    exit;
+}
+
+require "db.php";
 
 $data = json_decode(file_get_contents("php://input"), true);
 
 $username = $data["username"] ?? "";
-$password = $data["password"] ?? "";
+$password = password_hash($data["password"] ?? "", PASSWORD_DEFAULT);
 
-if (!$username || !$password) {
-    echo json_encode(["error" => "Missing fields"]);
+$stmt = $pdo->prepare("SELECT id FROM users WHERE username = ?");
+$stmt->execute([$username]);
+
+if ($stmt->fetch()) {
+    echo json_encode(["success" => false, "message" => "User exists"]);
     exit;
 }
 
-// 🔐 HASH PASSWORD
-$hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+$stmt = $pdo->prepare("INSERT INTO users (username, password) VALUES (?, ?)");
+$stmt->execute([$username, $password]);
 
-$stmt = $conn->prepare("INSERT INTO users (username, password) VALUES (?, ?)");
-$stmt->bind_param("ss", $username, $hashedPassword);
-
-if ($stmt->execute()) {
-    echo json_encode(["success" => true]);
-} else {
-    echo json_encode(["error" => "User already exists"]);
-}
+echo json_encode(["success" => true]);
